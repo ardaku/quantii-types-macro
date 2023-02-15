@@ -23,8 +23,8 @@ fn main() {
 
 #[cfg(test)]
 pub mod tests {
-    use quantii_types_macro::closure_to_fp;
     use super::closure_to_fn_once;
+    use quantii_types_macro::closure_to_fp;
 
     #[test]
     fn it_works() {
@@ -32,8 +32,10 @@ pub mod tests {
         // Not a function pointer!!
         let input_closure: Box<dyn FnOnce(()) -> String> = closure_to_fn_once(move |_| x);
         drop(input_closure);
-        
+
         let fp = closure_to_fp!(input_closure);
+
+        assert_eq!(fp(), x);
     }
 }
 
